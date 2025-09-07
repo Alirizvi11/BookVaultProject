@@ -1,6 +1,6 @@
 
 
-![BookVault LMS Banner](assets/banner.png)
+![BookVault LMS Banner](/screenshots/banner.png)
 
 # 📚 BookVault LMS
 
