@@ -1,0 +1,3 @@
+flask
+cx_Oracle
+python-dotenv
