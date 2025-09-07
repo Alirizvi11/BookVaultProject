@@ -1,4 +1,5 @@
 
+
 ![BookVault LMS Banner](assets/banner.png)
 
 # 📚 BookVault LMS
@@ -210,5 +211,6 @@ Ali Rizvi Backend-focused full-stack developer | Hackathon finalist | Civic tech
 
 ## 📬 Feedback & Contributions
 - 🛠️ **Feel free to fork, star ⭐, or raise issues. Contributions welcome!**
+
 
 
