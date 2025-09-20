@@ -1,0 +1,8 @@
+### Admin Login Test
+POST http://127.0.0.1:5000/admin/admin-login
+Content-Type: application/json
+
+{
+  "username": "BOOKVAULT_USER",
+  "password": "b1"
+}

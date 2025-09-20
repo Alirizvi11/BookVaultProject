@@ -1,15 +1,7 @@
-import cx_Oracle
+import sqlite3
 import os
-from dotenv import load_dotenv
-
-load_dotenv()
 
 def get_connection():
-    user = os.getenv("DB_USER")
-    password = os.getenv("DB_PASS")
-
-    # ✅ Use direct IP instead of hostname
-    dsn = cx_Oracle.makedsn("192.168.56.50", 1521, service_name="pdbprim1")
-
-    conn = cx_Oracle.connect(user=user, password=password, dsn=dsn)
+    db_path = os.getenv("SQLITE_DB_PATH", "bookvault.db")
+    conn = sqlite3.connect(db_path, check_same_thread=False)
     return conn

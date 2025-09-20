@@ -1,30 +1,41 @@
 from flask import Blueprint, jsonify
 from app.db_config import get_connection
-  # Assuming you have these
 
 book_bp = Blueprint("book_bp", __name__, url_prefix="/books")
 
-@book_bp.route("/get-books")
+@book_bp.route("/get-books", methods=["GET"])
 def get_books():
-    conn = get_connection()
-    cursor = conn.cursor()
+    conn = None
+    cursor = None
 
-    cursor.execute("""
-    SELECT book_id, title, author, genre, available_copies, cover_url
-    FROM books
-""")
-    rows = cursor.fetchall()
-    books = []
-    for row in rows:
-       books.append({
-    "book_id": row[0],
-    "title": row[1],
-    "author": row[2],
-    "genre": row[3],
-    "available": row[4],  # ✅ This maps to available_copies
-    "cover_url": row[5] or ""
-})
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
 
-    cursor.close()
-    conn.close()
-    return jsonify(books)
+        cursor.execute("""
+            SELECT book_id, title, author, genre, available_copies, cover_url
+            FROM books
+        """)
+        rows = cursor.fetchall()
+
+        books = [
+            {
+                "book_id": row[0],
+                "title": row[1],
+                "author": row[2],
+                "genre": row[3],
+                "available": row[4],
+                "cover_url": row[5] or ""
+            }
+            for row in rows
+        ]
+
+        return jsonify(books)
+
+    except Exception as e:
+        print("❌ GetBooks error:", e)
+        return jsonify({"error": str(e)}), 500
+
+    finally:
+        if cursor: cursor.close()
+        if conn: conn.close()
